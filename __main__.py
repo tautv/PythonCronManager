@@ -9,10 +9,10 @@ for job in cron:
     print('=' * len(job))
     print(job)
     print(f"\tMinutes:\t{job.minutes}")
-    print(f"\tHour:\t{job.hours}")
-    print(f"\tDay:\t{job.day}")
-    print(f"\tMonth:\t{job.months}")
-    print(f"\tDow:\t{job.dow}")
+    print(f"\tHour:\t\t{job.hours}")
+    print(f"\tDay:\t\t{job.day}")
+    print(f"\tMonth:\t\t{job.months}")
+    print(f"\tDow:\t\t{job.dow}")
     print(f"\tCommand:\t{job.command}")
 
 # # Add a new cron job
