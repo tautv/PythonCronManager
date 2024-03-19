@@ -12,7 +12,7 @@ for job in cron:
     print(f"\tHour:\t{job.hours}")
     print(f"\tDay:\t{job.day}")
     print(f"\tMonth:\t{job.months}")
-    print(f"\tDow:\t{job.dows}")
+    print(f"\tDow:\t{job.dow}")
     print(f"\tCommand:\t{job.command}")
 
 # # Add a new cron job
