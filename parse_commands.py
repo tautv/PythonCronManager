@@ -19,9 +19,12 @@ all_examples = [example_1, example_2, example_3, example_4, example_5, example_6
 
 def split_cron_command(command):
     # Regular expression pattern to match command + output redirect and error redirect
-    # Don't mess this up. it works really realyl well right now:
+    # Don't mess this up. it works really well right now:
     # pattern = r'(.+?)\s*(?:(>[>]?|2>[>]?)(.+?))?\s*(?:(2>[>]?)(.+?))?$'
+
+    # Slightly updated, to not lump error red into output red, if output red is not given!:
     pattern = r'(.+?)\s*(?:(>[>]?)(.+?))?\s*(?:(2>[>]?)(.+?))?$'
+    # pattern = r'(.+?)\s*(?:(>[>]?)(.+?))?\s*(?:(2>[>]?)(.+?))?$'
 
     match = re.match(pattern, command)
     if match:
