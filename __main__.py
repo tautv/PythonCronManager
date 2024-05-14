@@ -1,12 +1,14 @@
+import wx
 from crontab import CronTab
+from gui import CrontabEditor
 
 # Get the current user's crontab
 cron = CronTab(user=True)
 
 # List all existing cron jobs
-print("Existing cron jobs:")
+# print("Existing cron jobs:")
 for job in cron:
-    print('=' * len(job))
+    print('=' * len(str(job)))
     print(job)
     print(f"\tMinutes:\t{job.minutes}")
     print(f"\tHour:\t\t{job.hours}")
@@ -14,6 +16,16 @@ for job in cron:
     print(f"\tMonth:\t\t{job.months}")
     print(f"\tDow:\t\t{job.dow}")
     print(f"\tCommand:\t{job.command}")
+    print(f"\tUser:\t\t{job.user}")
+    print(f"\tComment:\t{job.comment}")
+    print(f"\tEnabled:\t{job.enabled}")
+    print(f"\tSpecial:\t{job.special}")
+    print(f"\tLast Run:\t{job.last_run}")
+    print(f"\tEnvironment:\t{job.env}")
+    print(f"\tPre-Comment:\t{job.pre_comment}")
+    print(f"\tMarker:\t\t{job.marker}")
+    print(f"\tStandard Input:\t{job.stdin}")
+    print(f"\tLog:\t\t{job._log}")
 
 # # Add a new cron job
 # new_job = cron.new(command='/path/to/your/command', comment='Your comment here')
@@ -30,3 +42,10 @@ for job in cron:
 #         cron.write()
 
 # print("New cron job added.")
+
+
+if __name__ == '__main__':
+    app = wx.App(False)
+    frame = CrontabEditor(None, "Python Cron Manager")
+    frame.Show()
+    app.MainLoop()
