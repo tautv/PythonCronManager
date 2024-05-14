@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
     name='PythonCronManager',
     version='1.0.0',
-    description='A Python Cron Manager application',
+    description='Python Cron Manager',
     author='tautv',
     url='https://github.com/tautv/PythonCronManager',
     packages=find_packages(where='src'),

@@ -11,9 +11,9 @@ class TestSplitCronCommand(unittest.TestCase):
     def test_basic_command(self):
         command = "mv /var/log/application.log /var/log/application.log.$(date +\%Y\%m\%d) && touch /var/log/application.log"  # noqa
         expected_output = (
-        "mv /var/log/application.log /var/log/application.log.$(date +\%Y\%m\%d) && touch /var/log/application.log",
-        # noqa
-        "", "", "", "")
+            "mv /var/log/application.log /var/log/application.log.$(date +\%Y\%m\%d) && touch /var/log/application.log",
+            # noqa
+            "", "", "", "")
         self.assertEqual(split_cron_command(command), expected_output)
 
         command = "rsync -avz --delete /var/www/html/ user@example.com:/var/www/backup/"
@@ -31,8 +31,9 @@ class TestSplitCronCommand(unittest.TestCase):
         self.assertEqual(split_cron_command(command), expected_output)
 
         command = '/bin/bash -c "source /path/to/env_vars.sh && /path/to/first_script.sh && /path/to/second_script.sh"'
-        expected_output = ('/bin/bash -c "source /path/to/env_vars.sh && /path/to/first_script.sh && /path/to/second_script.sh"',  # noqa
-                           "", "", "", "")
+        expected_output = (
+        '/bin/bash -c "source /path/to/env_vars.sh && /path/to/first_script.sh && /path/to/second_script.sh"',  # noqa
+        "", "", "", "")
         self.assertEqual(split_cron_command(command), expected_output)
 
     def test_output_redirect(self):
