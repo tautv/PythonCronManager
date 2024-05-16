@@ -1,6 +1,6 @@
 import unittest
 
-from src.utils.parse_commands import join_cron_command
+from src.utils.cron_command_parse import join_cron_command
 
 
 class TestJoinCronCommand(unittest.TestCase):

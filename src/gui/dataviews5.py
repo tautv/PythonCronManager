@@ -80,7 +80,6 @@ class MyFrame(wx.Frame):
         event.Skip()
 
 
-
 app = wx.App(False)
 frame = MyFrame(None, "Custom Button Renderer Example")
 frame.Show(True)
