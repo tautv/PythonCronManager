@@ -20,6 +20,15 @@ class ButtonRenderer(dv.DataViewCustomRenderer):
     def SetValue(self, value):
         return True  # Indicate that the value was successfully set
 
+    def GetMode(self):
+        # Enable activation for the button renderer
+        return dv.DATAVIEW_CELL_ACTIVATABLE
+
+    def ActivateCell(self, cell, model, item, col, mouseEvent):
+        # Print 'Button Clicked' when the button is activated
+        print('Button Clicked')
+        return True
+
 
 class MyModel(dv.PyDataViewModel):
     def __init__(self):
@@ -68,7 +77,6 @@ class MyFrame(wx.Frame):
 
         # Refresh the DataViewCtrl
         self.dvc.Refresh()
-
 
 
 app = wx.App(False)

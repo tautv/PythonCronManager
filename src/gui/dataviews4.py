@@ -20,6 +20,19 @@ class ButtonRenderer(dv.DataViewCustomRenderer):
     def SetValue(self, value):
         return True  # Indicate that the value was successfully set
 
+    def GetMode(self):
+        # Enable activation for the button renderer
+        return dv.DATAVIEW_CELL_ACTIVATABLE
+
+    def ActivateCell(self, cell, model, item, col, mouseEvent):
+        # Retrieve data for the clicked row
+        # row_data = [model.GetValue(item, col_idx) for col_idx in range(model.GetColumnCount())]
+        # row_data = model.GetValue(item, col)
+        # print(f"Row Clicked: {row_data}")
+        row = model.GetValue(item, col).replace("Row ", '')
+        print(f"Button Click: [{col}][{row}]")
+        return True
+
 
 class MyModel(dv.PyDataViewModel):
     def __init__(self):
@@ -40,9 +53,7 @@ class MyModel(dv.PyDataViewModel):
         return 0
 
     def GetValue(self, item, col):
-        if col == 0:
-            return self.data[self.ItemToObject(item)]
-        return ""
+        return self.data[self.ItemToObject(item)]
 
     def IsContainer(self, item):
         return False
@@ -66,9 +77,29 @@ class MyFrame(wx.Frame):
         button_renderer = ButtonRenderer()
         self.dvc.AppendColumn(dv.DataViewColumn("Button Column", button_renderer, 0, width=150))
 
+        self.dvc.Bind(dv.EVT_DATAVIEW_ITEM_ACTIVATED, self.OnCellActivated)
+
         # Refresh the DataViewCtrl
         self.dvc.Refresh()
 
+    def OnCellActivated(self, event):
+        print("GetCacheFrom()", event.GetCacheFrom())
+        print("GetCacheTo()", event.GetCacheTo())
+        print("GetColumn()", event.GetColumn())
+        print("GetDataBuffer()", event.GetDataBuffer())
+        print("GetDataFormat()", event.GetDataFormat().GetType())
+        print("GetDataObject()", event.GetDataObject())
+        print("GetDataSize()", event.GetDataSize())
+        print("GetDataViewColumn()", event.GetDataViewColumn())
+        print("GetDragFlags()", event.GetDragFlags())
+        print("GetDropEffect()", event.GetDropEffect())
+        print("GetItem()", event.GetItem())
+        print("GetModel()", event.GetModel())
+        print("GetPosition()", event.GetPosition())
+        print("GetProposedDropIndex()", event.GetProposedDropIndex())
+        print("GetValue()", event.GetValue())
+        print("")
+        print(event.GetModel().GetValue(event.GetItem(), event.GetColumn))
 
 
 app = wx.App(False)
