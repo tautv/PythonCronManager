@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='PythonCronManager',
-    version='1.0.0',
+    name='Python Cron Manager',
+    version='0.0.2',
     description='Python Cron Manager',
     author='tautv',
     url='https://github.com/tautv/PythonCronManager',

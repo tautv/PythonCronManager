@@ -1,6 +1,7 @@
+from src.utils.cron_manager import CronJob
 import wx
 import wx.dataview as dv
-from src.utils.cron_manager import CronJob
+from wx._dataview import DataViewItemArray
 
 
 class CronJobModel(dv.PyDataViewModel):
@@ -74,15 +75,22 @@ class CronJobManager(wx.Frame):
         # Create the DataViewCtrl
         self.dvc = dv.DataViewCtrl(self, style=wx.BORDER_THEME | dv.DV_ROW_LINES)
         self.setup_data_view()
+        self.grid_widgets()
+        self.bind_widgets()
+
+    def grid_widgets(self):
         # Set up the layout sizer
         sizer = wx.BoxSizer(wx.VERTICAL)
         sizer.Add(self.dvc, 1, wx.EXPAND)
         self.SetSizer(sizer)
         self.Show()
 
+    def bind_widgets(self):
+        self.dvc.Bind(wx.EVT_LEFT_DOWN, self.on_left_down)
+
     def setup_data_view(self):
-        model = CronJobModel(self.cron_jobs)
-        self.dvc.AssociateModel(model)
+        self.model = CronJobModel(self.cron_jobs)
+        self.dvc.AssociateModel(self.model)
         # Define columns
         self.dvc.AppendToggleColumn(label="Enabled", model_column=0, mode=dv.DATAVIEW_CELL_ACTIVATABLE, width=60)
 
@@ -115,6 +123,25 @@ class CronJobManager(wx.Frame):
                                   model_column=6,
                                   mode=dv.DATAVIEW_CELL_ACTIVATABLE)
         self.dvc.Refresh()
+
+    def on_left_down(self, event):
+        pos = event.GetPosition()
+        item, col_obj = self.dvc.HitTest(pos)
+        col = None
+        if col_obj:
+            col = col_obj.ModelColumn
+        if item.IsOk() and col:
+            row = self.model.ItemToObject(item)
+            print(f"Row: {row}, Column: {col}")
+            # Activate it right away:
+            # if (col != 0) and (col != 2) and (col != 4):
+            if col == 1 or col == 3 or col == 5:
+                _array = DataViewItemArray()
+                _array.append(item)
+                self.dvc.SetSelections(_array)
+                self.dvc.EditItem(item, col_obj)
+            else:
+                event.Skip()
 
 
 if __name__ == '__main__':
