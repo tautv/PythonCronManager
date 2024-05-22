@@ -1,9 +1,4 @@
-import platform
-
-if platform.system() != 'Windows':
-    from crontab import CronTab
-else:
-    pass  # TODO: Windows alternative
+from crontab import CronTab
 
 
 class CronJob:
@@ -28,10 +23,7 @@ class CronJob:
 
 class CronManager:
     def __init__(self):
-        if platform.system() != 'Windows':
-            self.cron = CronTab(user=True)
-        else:
-            pass  # TODO: Windows alternative
+        self.cron = CronTab(user=True)
         self.cron_jobs = []
         self.get_all_cron_jobs()
 
