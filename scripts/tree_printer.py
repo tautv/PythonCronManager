@@ -3,7 +3,7 @@ import os
 
 def print_directory_tree(root_dir, level=0):
     # Ignore directories starting with .
-    negatives = ['venv', '.idea', '__pycache__', '.git']
+    negatives = ['venv', '.idea', '__pycache__', '.git', 'build', 'dist']
     dirs = [d for d in os.listdir(root_dir) if d not in negatives]
 
     for i, d in enumerate(dirs):
@@ -18,10 +18,11 @@ def print_directory_tree(root_dir, level=0):
             print('    ' * level + '|-- ' + d)
 
 
-# Example usage:
-directory_path = '.'
-print(f"Directory Tree of {directory_path}:")
-print_directory_tree(directory_path)
+if __name__ == '__main__':
+    # Example usage:
+    directory_path = '.'
+    print(f"Directory Tree of {directory_path}:")
+    print_directory_tree(directory_path)
 
 
 # |-- requirements.txt

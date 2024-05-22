@@ -4,4 +4,4 @@ python-crontab
 python-dateutil
 six
 wxPython
-py2exe
+py2app

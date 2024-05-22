@@ -1,9 +1,16 @@
 import wx
-from src.gui.frames import CrontabEditor
-from src.utils import configs
+from src.ui.main_window import MainWindow
+
+
+def main():
+    app = wx.App(False)
+    frame = MainWindow(None, title='Python Cron Manager', size=(800, 600))
+    frame.Show(True)
+    app.MainLoop()
+
 
 if __name__ == '__main__':
-    app = wx.App(False)
-    frame = CrontabEditor(None, f"{configs.get_name()} ({configs.get_version()})")
-    frame.Show()
-    app.MainLoop()
+    main()
+
+# python setup.py py2exe
+# python setup.py py2app
