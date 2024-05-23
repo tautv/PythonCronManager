@@ -22,8 +22,8 @@ class CronJob:
 
 
 class CronManager:
-    def __init__(self):
-        self.cron = CronTab(user=True)
+    def __init__(self, user=True):
+        self.cron = CronTab(user=user)
         self.cron_jobs = []
         self.get_all_cron_jobs()
 
@@ -38,3 +38,9 @@ class CronManager:
 
     def get_all_cron_jobs(self):
         pass
+
+
+# c = CronManager()
+# job = c.cron.new(command="/bin/bash -c /Users/your_user_name/cronish/job.sh")
+# job.setall('* * * * *')
+# c.cron.write()
