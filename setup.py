@@ -21,6 +21,8 @@ if sys.platform.startswith('win'):
         'py2exe': {
             'packages': ['wx'],  # Include wxPython package
             'dist_dir': 'dist/win',  # specify the output directory as dist/win for py2exe
+            'bundle_files': 1,  # Bundles everything into a single executable
+            'compressed': True,  # Compresses the library archive into the exe
         }
     }
     setup(
@@ -32,6 +34,7 @@ if sys.platform.startswith('win'):
         }],
         options=options,
         install_requires=common_deps + extra_deps,
+        zipfile=None,  # Indicates that the library archive should be included in the executable
     )
 
 # macOS-specific setup

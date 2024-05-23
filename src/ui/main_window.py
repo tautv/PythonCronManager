@@ -13,8 +13,8 @@ class MainWindow(wx.Frame):
         # self.text_ctrl = wx.TextCtrl(panel, -1, style=wx.TE_MULTILINE)
 
         sizer = wx.BoxSizer(wx.VERTICAL)
-        sizer.Add(_toolbar, 0, wx.EXPAND, 0)
-        sizer.Add(_cron_job_list, 1, wx.EXPAND, 0)
+        sizer.Add(_toolbar, proportion=0, flag=wx.EXPAND, border=20)
+        sizer.Add(_cron_job_list, proportion=1, flag=wx.EXPAND, border=20)
         # sizer.Add(self.text_ctrl, 1, wx.EXPAND)
         panel.Fit()
         panel.SetSizer(sizer)

@@ -4,7 +4,7 @@ from src.ui.main_window import MainWindow
 
 def main():
     app = wx.App(False)
-    frame = MainWindow(None, title='Python Cron Manager', size=(800, 600))
+    frame = MainWindow(None, title='Python Cron Manager', size=(900, 400))
     frame.Show(True)
     app.MainLoop()
 
