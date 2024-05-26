@@ -14,7 +14,7 @@ class MainWindow(wx.Frame):
 
         sizer = wx.BoxSizer(wx.VERTICAL)
         sizer.Add(_toolbar, proportion=0, flag=wx.EXPAND, border=20)
-        sizer.Add(_cron_job_list, proportion=1, flag=wx.EXPAND, border=20)
+        sizer.Add(_cron_job_list, proportion=1, flag=wx.EXPAND | wx.ALL, border=5)
         # sizer.Add(self.text_ctrl, 1, wx.EXPAND)
         panel.Fit()
         panel.SetSizer(sizer)

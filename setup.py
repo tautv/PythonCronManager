@@ -27,7 +27,7 @@ if sys.platform.startswith('win'):
     }
     setup(
         name='PythonCronManager',
-        version='0.1.0',
+        version='0.0.1',
         windows=[{
             'script': 'src/main.py',
             'icon_resources': [(1, 'src/images/icon.ico')]
