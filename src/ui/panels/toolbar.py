@@ -1,5 +1,7 @@
+import os
 import wx
 from wx.adv import AboutBox
+from src.ui.dialogs.confirm import yes_no_dialog
 
 
 class Toolbar(wx.Panel):
@@ -39,6 +41,8 @@ class Toolbar(wx.Panel):
                 self.b_File_ExportJobList()
             if file_item.ItemLabelText == "Import Job List":
                 self.b_File_ImportJobList()
+            if file_item.ItemLabelText == "Delete Selected":
+                self.b_File_DeleteSelected()
             if file_item.ItemLabelText == "Close":
                 self.b_File_Close()
             # print(f"Selected: [File > {menu_id}] {file_item.ItemLabelText}")
@@ -60,6 +64,7 @@ class Toolbar(wx.Panel):
         self.context_menu_file.Append(wx.ID_ANY, "New Job")
         self.context_menu_file.Append(wx.ID_ANY, "Export Job List")
         self.context_menu_file.Append(wx.ID_ANY, "Import Job List")
+        self.context_menu_file.Append(wx.ID_ANY, "Delete Selected")
         self.context_menu_file.Append(wx.ID_ANY, "Close")
         # Help Button:
         self.b_Help = wx.Button(self, label='Help')
@@ -87,13 +92,30 @@ class Toolbar(wx.Panel):
 
     def b_File_ExportJobList(self):
         print("b_File_ExportJobList")
+        wildcard = "JSON files (*.json)|*.json"
+        initial_dir = os.getcwd()  # Get current working directory
+        dialog = wx.FileDialog(self, "Save JSON File", wildcard=wildcard, style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT,
+                               defaultDir=initial_dir)
+        if dialog.ShowModal() == wx.ID_OK:
+            path = dialog.GetPath()
+            print(f"Save file as: {path}")
+        dialog.Destroy()
 
     def b_File_ImportJobList(self):
         print("b_File_ImportJobList")
+        wildcard = "JSON files (*.json)|*.json"
+        initial_dir = os.getcwd()  # Get current working directory
+        dialog = wx.FileDialog(self, "Open JSON File", wildcard=wildcard, style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST,
+                               defaultDir=initial_dir)
+        if dialog.ShowModal() == wx.ID_OK:
+            path = dialog.GetPath()
+            print(f"Selected file: {path}")
+        dialog.Destroy()
 
     def b_File_Close(self):
         print("b_File_Close")
-        wx.GetApp().ExitMainLoop()
+        if yes_no_dialog("Are you sure?", "Quit"):
+            wx.GetApp().ExitMainLoop()
 
     def b_Help_About(self):
         about_info = wx.adv.AboutDialogInfo()
@@ -107,6 +129,14 @@ class Toolbar(wx.Panel):
 
     def b_Help_CheckForUpdates(self):
         print("b_Help_CheckForUpdates")
+
+    def b_File_DeleteSelected(self):
+        print("b_File_DeleteSelected")
+        if yes_no_dialog("Are you sure?\nYou cannot Undo this.\nExporting Jobs first is recommended!",
+                         "Delete Selected?"):
+            print("Deleting Selected Jobs")
+        else:
+            print("Deletion cancelled")
 
 
 # Example of usage
