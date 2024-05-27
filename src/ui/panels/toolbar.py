@@ -1,4 +1,5 @@
 import wx
+from wx.adv import AboutBox
 
 
 class Toolbar(wx.Panel):
@@ -50,30 +51,23 @@ class Toolbar(wx.Panel):
                 self.b_Help_CheckForUpdates()
             # print(f"Selected: [Help > {menu_id}] {help_item.ItemLabelText}")
 
-
-
-
-    def create_context_menu_file(self):
+    def create_widgets(self):
+        # File Button:
+        self.b_File = wx.Button(self, label='File')
+        self.customize_button(self.b_File)
+        # File Sub-Buttons:
         self.context_menu_file = wx.Menu()
         self.context_menu_file.Append(wx.ID_ANY, "New Job")
         self.context_menu_file.Append(wx.ID_ANY, "Export Job List")
         self.context_menu_file.Append(wx.ID_ANY, "Import Job List")
         self.context_menu_file.Append(wx.ID_ANY, "Close")
-
-    def create_context_menu_help(self):
-        self.context_menu_help = wx.Menu()
-        self.context_menu_help.Append(wx.ID_ANY, "About")
-        self.context_menu_help.Append(wx.ID_ANY, "Check For Updates")
-
-    def create_widgets(self):
-        # File Button:
-        self.b_File = wx.Button(self, label='File')
-        self.customize_button(self.b_File)
-        self.create_context_menu_file()
         # Help Button:
         self.b_Help = wx.Button(self, label='Help')
         self.customize_button(self.b_Help)
-        self.create_context_menu_help()
+        # Help Sub-Buttons:
+        self.context_menu_help = wx.Menu()
+        self.context_menu_help.Append(wx.ID_ANY, "About")
+        self.context_menu_help.Append(wx.ID_ANY, "Check For Updates")
 
     def grid_widgets(self):
         self.sizer = wx.BoxSizer(wx.HORIZONTAL)  # Create a box sizer for horizontal layout
@@ -99,9 +93,17 @@ class Toolbar(wx.Panel):
 
     def b_File_Close(self):
         print("b_File_Close")
+        wx.GetApp().ExitMainLoop()
 
     def b_Help_About(self):
-        print("b_Help_About")
+        about_info = wx.adv.AboutDialogInfo()
+        about_info.SetName("Python Cron Manager")
+        about_info.SetVersion("0.01")
+        about_info.SetDescription("Simple wxPython based UI for cron jobs.")
+        about_info.SetCopyright("(C) 2024")
+        about_info.SetWebSite("https://www.github.com/tautv/PythonCronManager")
+        about_info.AddDeveloper("tautv")
+        wx.adv.AboutBox(about_info)
 
     def b_Help_CheckForUpdates(self):
         print("b_Help_CheckForUpdates")
