@@ -1,10 +1,14 @@
+from typing import List
 from crontab import CronTab
+
+DEFAULT_OUTPUT_CHOICES = ['Cron Default', 'None', 'Write To File', 'Append To File']
+DEFAULT_ERROR_CHOICES = ['Cron Default', 'None', 'Write To File', 'Append To File', 'To Output File']
 
 
 class CronJob:
     def __init__(self, enabled=True, cron_command="", output_type="Cron Default", output_file_path="",
                  error_type="Cron Default", error_file_path=""):
-        # Dataview dependent structure:
+        # UI essentials
         self.enabled = enabled
         self.cron_command = cron_command
         self.output_type = output_type
@@ -19,13 +23,15 @@ class CronJob:
         self.default_dow = 0  # 0 = Sunday, 1 = Monday...
         self.default_comment = ""
         self.default_command = ""
+        # Other
+        self.cron = None
 
 
 class CronManager:
     def __init__(self, user=True):
-        self.cron = CronTab(user=user)
+        self.user = user
+        self.cron = CronTab(user=self.user)
         self.cron_jobs = []
-        self.get_all_cron_jobs()
 
     def add_cron_job(self, cron_job):
         pass
@@ -36,11 +42,7 @@ class CronManager:
     def delete_cron_job(self, cron_job):
         pass
 
-    def get_all_cron_jobs(self):
-        pass
-
-
-# c = CronManager()
-# job = c.cron.new(command="/bin/bash -c /Users/your_user_name/cronish/job.sh")
-# job.setall('* * * * *')
-# c.cron.write()
+    def get_all_cron_jobs(self) -> List[CronJob]:
+        if self.cron:
+            return self.cron_jobs
+        return []
