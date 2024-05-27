@@ -7,11 +7,11 @@ from src.ui.dialogs.confirm import yes_no_dialog
 class Toolbar(wx.Panel):
     def __init__(self, parent):
         super().__init__(parent)
+        self.SetFocusIgnoringChildren()  # Disable focus for the panel and buttons
+        self.SetBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_MENU))  # Set panel background color
         self.create_widgets()
         self.grid_widgets()
         self.bind_widgets()
-        self.SetBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_MENU))  # Set panel background color
-        self.SetFocusIgnoringChildren()  # Disable focus for the panel and buttons
 
     def customize_button(self, button):
         button.SetBackgroundColour(wx.Colour(240, 240, 240))  # Example background color
