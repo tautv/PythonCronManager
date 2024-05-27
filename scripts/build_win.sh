@@ -17,3 +17,5 @@ echo "Running py2exe..."
 python setup.py py2exe
 
 echo "Build completed."
+
+explorer.exe "."
