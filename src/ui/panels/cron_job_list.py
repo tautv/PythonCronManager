@@ -18,14 +18,14 @@ class CronJobList(wx.Panel):
         self.sizer.AddGrowableCol(5, 1)
         self.sizer.AddGrowableCol(6, 1)
         wx.CallAfter(self.fetch_cron_jobs)  # Schedule fetching cron jobs after UI is fully initialized
-        wx.CallLater(2000, self.test)  # Schedule fetching cron jobs after UI is fully initialized
-
-    def test(self):
-        self.cron_jobs = [CronJob(), CronJob(), CronJob(), CronJob()]
-        self.remove_widgets()
-        self.create_widgets()
-        self.grid_widgets()
-        self.bind_widgets()
+    #     wx.CallLater(2000, self.test)  # Schedule fetching cron jobs after UI is fully initialized
+    #
+    # def test(self):
+    #     self.cron_jobs = [CronJob(), CronJob(), CronJob(), CronJob()]
+    #     self.remove_widgets()
+    #     self.create_widgets()
+    #     self.grid_widgets()
+    #     self.bind_widgets()
 
     def fetch_cron_jobs(self):
         self.CM = CronManager()
@@ -60,7 +60,7 @@ class CronJobList(wx.Panel):
                                     lambda event, idx=len(self.widgets) - 1: self.on_edit_job(event, idx))
         else:
             self.cron_jobs_found = False
-            for _ in range(2):  # Creating two fake lines
+            for _ in range(1):  # Creating two fake lines
                 widgets_row = [
                     wx.CheckBox(self, label=""),
                     wx.TextCtrl(self, style=wx.TE_PROCESS_ENTER),
