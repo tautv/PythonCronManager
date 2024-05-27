@@ -7,15 +7,19 @@ class MainWindow(wx.Frame):
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
 
+        self.SetMinSize((700, 300))
+
         panel = wx.Panel(self)
-        _toolbar = Toolbar(panel)
-        _cron_job_list = CronJobList(panel)
-        # self.text_ctrl = wx.TextCtrl(panel, -1, style=wx.TE_MULTILINE)
+        toolbar = Toolbar(panel)
+        cron_job_list = CronJobList(panel)
 
         sizer = wx.BoxSizer(wx.VERTICAL)
-        sizer.Add(_toolbar, proportion=0, flag=wx.EXPAND, border=20)
-        sizer.Add(_cron_job_list, proportion=1, flag=wx.EXPAND | wx.ALL, border=5)
-        # sizer.Add(self.text_ctrl, 1, wx.EXPAND)
+        sizer.Add(toolbar, proportion=0, flag=wx.EXPAND, border=20)
+        sizer.Add(cron_job_list, proportion=1, flag=wx.EXPAND | wx.ALL, border=5)
+
+        self.CreateStatusBar()
+        self.SetStatusText("")
+
         panel.Fit()
         panel.SetSizer(sizer)
 
@@ -23,12 +27,14 @@ class MainWindow(wx.Frame):
 
         self.Bind(wx.EVT_CLOSE, self.on_close)
 
+        self.Centre()
+
     def on_close(self, event):
         self.Destroy()
-#
-#
-# if __name__ == '__main__':
-#     app = wx.App(False)
-#     frame = MainWindow(None, title='MainWindow')
-#     frame.Show(True)
-#     app.MainLoop()
+
+
+if __name__ == '__main__':
+    app = wx.App(False)
+    frame = MainWindow(None, title='MainWindow')
+    frame.Show(True)
+    app.MainLoop()

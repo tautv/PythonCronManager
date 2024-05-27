@@ -30,7 +30,8 @@ if sys.platform.startswith('win'):
         version='0.0.1',
         windows=[{
             'script': 'src/main.py',
-            'icon_resources': [(1, 'src/images/icon.ico')]
+            'icon_resources': [(1, 'src/images/icon.ico')],
+            'dest_base': 'PythonCronManager',
         }],
         options=options,
         install_requires=common_deps + extra_deps,
