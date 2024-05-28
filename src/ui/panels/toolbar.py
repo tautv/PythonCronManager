@@ -41,8 +41,6 @@ class Toolbar(wx.Panel):
                 self.b_File_ExportJobList()
             if file_item.ItemLabelText == "Import Job List":
                 self.b_File_ImportJobList()
-            if file_item.ItemLabelText == "Delete Selected":
-                self.b_File_DeleteSelected()
             if file_item.ItemLabelText == "Close":
                 self.b_File_Close()
             # print(f"Selected: [File > {menu_id}] {file_item.ItemLabelText}")
@@ -64,7 +62,6 @@ class Toolbar(wx.Panel):
         self.context_menu_file.Append(wx.ID_ANY, "New Job")
         self.context_menu_file.Append(wx.ID_ANY, "Export Job List")
         self.context_menu_file.Append(wx.ID_ANY, "Import Job List")
-        self.context_menu_file.Append(wx.ID_ANY, "Delete Selected")
         self.context_menu_file.Append(wx.ID_ANY, "Close")
         # Help Button:
         self.b_Help = wx.Button(self, label='Help')
@@ -129,14 +126,6 @@ class Toolbar(wx.Panel):
 
     def b_Help_CheckForUpdates(self):
         print("b_Help_CheckForUpdates")
-
-    def b_File_DeleteSelected(self):
-        print("b_File_DeleteSelected")
-        if yes_no_dialog("Are you sure?\nYou cannot Undo this.\nExporting Jobs first is recommended!",
-                         "Delete Selected?"):
-            print("Deleting Selected Jobs")
-        else:
-            print("Deletion cancelled")
 
 
 # Example of usage
