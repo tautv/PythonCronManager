@@ -81,5 +81,8 @@ def join_cron_command(command, output_redirect, output_file, error_redirect, err
     if output_redirect:
         cron_command += f" {output_redirect} {output_file}"
     if error_redirect:
-        cron_command += f" {error_redirect} {error_file}"
+        if error_file == '&1':
+            cron_command += f" {error_redirect}{error_file}"
+        else:
+            cron_command += f" {error_redirect} {error_file}"
     return cron_command.strip()

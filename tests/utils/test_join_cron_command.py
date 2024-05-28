@@ -101,6 +101,16 @@ class TestJoinCronCommand(unittest.TestCase):
         self.assertEqual(join_cron_command(command, output_redirect, output_file, error_redirect, error_file),
                          expected_output)
 
+    def test_error_redirect_to_output(self):
+        command = '/bin/bash -c "echo Test!"'
+        output_redirect = ''
+        output_file = ''
+        error_redirect = '2>>'
+        error_file = '&1'
+        expected_output = '/bin/bash -c "echo Test!" 2>>&1'
+        self.assertEqual(join_cron_command(command, output_redirect, output_file, error_redirect, error_file),
+                         expected_output)
+
 
 if __name__ == '__main__':
     unittest.main()
