@@ -3,6 +3,17 @@ import wx
 from wx.adv import AboutBox
 from src.ui.dialogs.confirm import yes_no_dialog
 
+import wx
+
+# Define a new event type
+myEVT_Toolbar_New = wx.NewEventType()
+EVT_TOOLBAR_NEW = wx.PyEventBinder(myEVT_Toolbar_New)
+
+
+class ToolbarAddNewEvent(wx.PyCommandEvent):
+    def __init__(self, event_type, _id):
+        super().__init__(event_type, _id)
+
 
 class Toolbar(wx.Panel):
     def __init__(self, parent):
@@ -86,6 +97,7 @@ class Toolbar(wx.Panel):
 
     def b_File_NewJob(self):
         print("b_File_NewJob")
+        wx.PostEvent(self, ToolbarAddNewEvent(myEVT_Toolbar_New, self.GetId()))
 
     def b_File_ExportJobList(self):
         print("b_File_ExportJobList")

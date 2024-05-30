@@ -1,6 +1,7 @@
 import wx
 from src.ui.panels.toolbar import Toolbar
 from src.ui.panels.cron_job_list import CronJobList
+from src.ui.panels.toolbar import myEVT_Toolbar_New, EVT_TOOLBAR_NEW
 
 
 class MainWindow(wx.Frame):
@@ -24,13 +25,18 @@ class MainWindow(wx.Frame):
         panel.SetSizer(sizer)
 
         self.Layout()
-
-        self.Bind(wx.EVT_CLOSE, self.on_close)
-
         self.Centre()
+        self.bind_widgets()
+
+    def bind_widgets(self):
+        self.Bind(wx.EVT_CLOSE, self.on_close)
+        self.Bind(EVT_TOOLBAR_NEW, self.onToolbarNew)
 
     def on_close(self, event):
         self.Destroy()
+
+    def onToolbarNew(self, event):
+        print('Should Create')
 
 
 if __name__ == '__main__':
