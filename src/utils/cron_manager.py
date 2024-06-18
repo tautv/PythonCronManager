@@ -91,6 +91,10 @@ class CronManager:
                 user=self.user
             )
 
+            # TODO: Crontab needs timing parsed:
+            #   Should be parsed from _command,
+            #   then translated to the below:
+
             # Set timing attributes
             new_job.setall(
                 cron_job.default_minutes,
@@ -151,3 +155,7 @@ if __name__ == '__main__':
             print(f"[{key}]\t\t\t\t\t{value}")
         print(join_cron_command(_job.cron_command, _job.output_type, _job.output_file_path, _job.error_type,
                                 _job.error_file_path))
+    cj = CronJob()
+    cj.cron_command_unparsed = '* * * * * /bin/bash -c "echo Test" > ~/Desktop/test.txt'
+    cj.parse_command()
+    cm.add_cron_job(cj)
