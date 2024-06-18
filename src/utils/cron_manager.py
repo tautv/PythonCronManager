@@ -14,8 +14,8 @@ DEFAULT_ERROR_CHOICES = ['Cron Default',  # Cron default behavior
 
 
 class CronJob:
-    def __init__(self, enabled=True, cron_command="", output_type=">", output_file_path="/dev/null",
-                 error_type="2>", error_file_path="/dev/null"):
+    def __init__(self, enabled=True, cron_command="", output_type="", output_file_path="",
+                 error_type="", error_file_path=""):
         # UI essentials
         self.enabled = enabled
         self.cron_command_unparsed = ''
@@ -146,6 +146,7 @@ if __name__ == '__main__':
     # cm.add_cron_job(ncj)
 
     for _job in cm.cron_jobs:
+        _job.parse_command()
         for key, value in _job.__dict__.items():
             print(f"[{key}]\t\t\t\t\t{value}")
         print(join_cron_command(_job.cron_command, _job.output_type, _job.output_file_path, _job.error_type,
